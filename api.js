@@ -1,4 +1,33 @@
 
+const fetchPetCategories= () => {
+             fetch('https://openapi.programming-hero.com/api/peddy/categories')
+            .then(res => res.json())
+            .then(data => displayCategories(data.categories))  
+            .catch(error => console.log(error));
+    }
+
+
+function displayCategories(categories) {
+    const categoryContainer = document.querySelector('.categorey');
+    categoryContainer.innerHTML = ''; 
+
+    categories.forEach(category => {
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'card bg-base-100 shadow-md p-4 m-2 flex flex-row gap-[10px] items-center';
+        categoryCard.innerHTML = `
+            <img src="${category.category_icon}" alt="${category.category}" class="w-16 h-16 mb-2">
+            <h3 class="text-xl font-bold">${category.category}</h3>
+        `;
+        categoryContainer.appendChild(categoryCard);
+    });
+}
+
+
+fetchPetCategories();
+
+
+
+
 const load = () => {
     fetch("https://openapi.programming-hero.com/api/peddy/pets")
         .then(res => res.json())
@@ -65,15 +94,12 @@ function setupEventListeners() {
 }
 
 
-// function addLikedPet(imageSrc) {
-//     const likedImage = document.getElementById('liked-image');
-//     likedImage.src = imageSrc;
-// }
+
 
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
     const likedCard = document.createElement('div');
-    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  // Card for liked pet
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  
 
     likedCard.innerHTML = `
         <figure>
@@ -81,7 +107,7 @@ function addLikedPet(imageSrc) {
         </figure>
     `;
 
-    likedDiv.appendChild(likedCard);  // Append liked pet image
+    likedDiv.appendChild(likedCard);  
 }
 
 function fetchPetDetailsById(petId) {
