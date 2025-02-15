@@ -61,7 +61,7 @@ const load = () => {
 function fetchPetsByCategory(categoryName) {
     fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
         .then(res => res.json())
-        .then(data => displayPets(data.data,true))
+        .then(data => displayPets(data.data, true))
         .catch(error => console.log(error));
 }
 
@@ -97,46 +97,55 @@ function displayPets(pets, cate = false) {
 // Function to render pets into the showDiv
 function renderPets(pets, showDiv) {
     // Clear any existing content
-    showDiv.innerHTML = ""; 
+    showDiv.innerHTML = "";
 
-    if(pets.length <= 0){
+    if (pets.length <= 0) {
         showDiv.classList.remove('grid', 'grid-cols-3', 'gap-4');
         const petCard = document.createElement('div');
-        petCard.classList.add('pl-[500px]','text-center');
-        petCard.innerHTML=`
-
-    <img src="images/error.webp" alt="" class='pl-[200px]'>
-    <p>No Information Available</p>
-    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at 
-its layout. The point of using Lorem Ipsum is that it has a.</p>
-
-        `;
+        petCard.classList.add('pl-[500px]', 'text-center');
+        petCard.innerHTML = `
+            <div class="hero  h-fit pr-[100px]">
+            <div class="hero-content flex-col">
+                <img
+                src="images/error.webp"
+                class="w-[20%] rounded-lg shadow-2xl" />
+                <div>
+                <h1 class="text-5xl font-bold">No Information Available</h1>
+                <p class="py-6">
+                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+                    quasi. In deleniti eaque aut repudiandae et a id nisi.
+                </p>
+                </div>
+            </div>
+            </div>
+            `;
         showDiv.appendChild(petCard);
     }
-    else{
+    else {
         showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
         pets.forEach(pet => {
             const petCard = document.createElement('div');
-            petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
-    
+            petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-6', 'rounded-[12px]');
+
             petCard.innerHTML = `
                 <figure>
-                    <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover pet-image">
+                    <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover pet-image rounded-[8px]">
                 </figure>
-                <div class="card-body">
-                    <h2 class="card-title">${pet.pet_name}</h2>
-                    <p>Breed: ${pet.breed || 'Unknown'}</p>
-                    <p>Gender: ${pet.gender}</p>
-                    <p>Price: $${pet.price}</p>
-                    <p>Vaccination Status: ${pet.vaccinated_status}</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary like-btn" data-image="${pet.image}">Like</button>
-                        <button class="btn btn-secondary details-btn" data-pet-id="${pet.petId}">Details</button>
-                        <button class="btn btn-accent adopt-btn">Adopt</button>
+                <div class="card-body px-0">
+                    <h2 class="card-title text-[20px] font-bold">${pet.pet_name}</h2>
+                    <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Unknown'}</p>
+                    <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth}</p>
+                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender}</p>
+                    <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price}</p>
+                    <div class="card-actions justify-between">
+                        <button class="btn btn-ghost like-btn" data-image="${pet.image}"><img src="images/like.png" alt="" class='w-[20px] h-[20px]'></button>
+                        <button class="btn btn-ghost adopt-btn text-[#0E7A81]">Adopt</button>
+                        <button class="btn btn-ghost details-btn text-[#0E7A81]" data-pet-id="${pet.petId}">Details</button>
+                        
                     </div>
                 </div>
             `;
-    
+
             showDiv.appendChild(petCard);
         });
     }
@@ -152,21 +161,21 @@ function setupEventListeners() {
     const adoptButtons = document.querySelectorAll('.adopt-btn');
 
     likeButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const imageSrc = this.getAttribute('data-image');
             addLikedPet(imageSrc);
         });
     });
 
     detailsButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const petId = this.getAttribute('data-pet-id');
             fetchPetDetailsById(petId);
         });
     });
 
     adoptButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             showCongratsModal();
         });
     });
@@ -190,7 +199,7 @@ function showCongratsModal() {
             countdownTimer.innerHTML = 3
             closeModal();
             clearInterval(intervalId);
-            
+
         }
     }
 }
@@ -205,15 +214,15 @@ function closeModal() {
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
     const likedCard = document.createElement('div');
-    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'w-[124px]', 'h-[124px]');
 
     likedCard.innerHTML = `
         <figure>
-            <img src="${imageSrc}" class="w-full h-48 object-cover">
+            <img src="${imageSrc}" class="w-full h-[128px] object-cover rounded-[20px]">
         </figure>
     `;
 
-    likedDiv.appendChild(likedCard);  
+    likedDiv.appendChild(likedCard);
 }
 
 function fetchPetDetailsById(petId) {
@@ -234,21 +243,29 @@ function showPetDetails(pet) {
     const modalBody = document.getElementById('modal-body');
 
     modalBody.innerHTML = `
+        <div class='card-body p-0'>
+        <img src="${pet.image}" class="w-full h-[400px] object-cover rounded-[12px]">
         <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
-        <img src="${pet.image}" class="w-full h-48 object-cover my-4">
-        <p><strong>Breed:</strong> ${pet.breed || 'Unknown'}</p>
-        <p><strong>Category:</strong> ${pet.category}</p>
-        <p><strong>Date of Birth:</strong> ${pet.date_of_birth || 'N/A'}</p>
-        <p><strong>Price:</strong> $${pet.price}</p>
-        <p><strong>Gender:</strong> ${pet.gender}</p>
+        <div class="flex items-center gap-[50px]">
+            <div class='card-body p-0'>
+                <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Unknown'}</p>
+                <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth}</p>
+                </div>
+                <div class='card-body p-0'>
+                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender}</p>
+                <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price}</p>
+                </div>
+            </div>
         <p><strong>Vaccination Status:</strong> ${pet.vaccinated_status}</p>
         <p><strong>Details:</strong> ${pet.pet_details}</p>
+        </div>
+
     `;
 
     modal.classList.remove('hidden');
 }
 
-document.getElementById('close-modal').addEventListener('click', function() {
+document.getElementById('close-modal').addEventListener('click', function () {
     document.getElementById('pet-modal').classList.add('hidden');
 });
 
