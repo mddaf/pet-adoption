@@ -17,7 +17,7 @@ function displayCategories(categories) {
 
     categories.forEach(category => {
         const categoryCard = document.createElement('div');
-        categoryCard.className = 'card bg-base-100 shadow-md p-4 m-2 flex flex-row gap-[10px] items-center category-card';
+        categoryCard.className = 'card bg-base-100 shadow-md w-[13%] h-[9%]  flex flex-row gap-[10px] justify-center items-center category-card';
         categoryCard.setAttribute('data-category', category.category);
 
         categoryCard.innerHTML = `
@@ -61,47 +61,95 @@ const load = () => {
 function fetchPetsByCategory(categoryName) {
     fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
         .then(res => res.json())
-        .then(data => displayPets(data.data))
+        .then(data => displayPets(data.data,true))
         .catch(error => console.log(error));
 }
 
-function displayPets(pets) {
-    currentPets=pets
+function displayPets(pets, cate = false) {
+    currentPets = pets;
     const showDiv = document.querySelector('.show');
-    showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
 
-    showDiv.innerHTML = "";
+    // If cate is true, show the loading spinner
+    // if (cate) {
+    //     showDiv.innerHTML = `<span class="loading loading-bars loading-lg"></span>`;
+    // }
 
-    pets.forEach(pet => {
+    // Simulate loading for 2 seconds if cate is true
+    if (cate) {
+        showDiv.classList.add('w-[880px]', 'h-[480px]');
+        showDiv.innerHTML = `<span class="loading loading-bars loading-lg p-[25px] mx-[700px] my-[150px]"></span>`;
+        setTimeout(() => {
+            // Clear the spinner and show the pets
+            showDiv.classList.remove('w-[880px]', 'h-[480px]');
+            showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
+            showDiv.innerHTML = ""; // Clear the spinner
+
+            // Display pets
+            renderPets(pets, showDiv);
+
+        }, 2000); // Simulate a 2-second delay for loading
+    } else {
+        // If cate is false, display pets immediately
+        renderPets(pets, showDiv);
+    }
+}
+
+// Function to render pets into the showDiv
+function renderPets(pets, showDiv) {
+    // Clear any existing content
+    showDiv.innerHTML = ""; 
+
+    if(pets.length <= 0){
+        showDiv.classList.remove('grid', 'grid-cols-3', 'gap-4');
         const petCard = document.createElement('div');
-        petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
+        petCard.classList.add('pl-[500px]','text-center');
+        petCard.innerHTML=`
 
-        petCard.innerHTML = `
-            <figure>
-                <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover pet-image">
-            </figure>
-            <div class="card-body">
-                <h2 class="card-title">${pet.pet_name}</h2>
-                <p>Breed: ${pet.breed || 'Unknown'}</p>
-                <p>Gender: ${pet.gender}</p>
-                <p>Price: $${pet.price}</p>
-                <p>Vaccination Status: ${pet.vaccinated_status}</p>
-                <div class="card-actions justify-end">
-                    <button class="btn btn-primary like-btn" data-image="${pet.image}">Like</button>
-                    <button class="btn btn-secondary details-btn" data-pet-id="${pet.petId}">Details</button>
-                </div>
-            </div>
+    <img src="images/error.webp" alt="" class='pl-[200px]'>
+    <p>No Information Available</p>
+    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at 
+its layout. The point of using Lorem Ipsum is that it has a.</p>
+
         `;
-
         showDiv.appendChild(petCard);
-    });
+    }
+    else{
+        showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
+        pets.forEach(pet => {
+            const petCard = document.createElement('div');
+            petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
+    
+            petCard.innerHTML = `
+                <figure>
+                    <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover pet-image">
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title">${pet.pet_name}</h2>
+                    <p>Breed: ${pet.breed || 'Unknown'}</p>
+                    <p>Gender: ${pet.gender}</p>
+                    <p>Price: $${pet.price}</p>
+                    <p>Vaccination Status: ${pet.vaccinated_status}</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary like-btn" data-image="${pet.image}">Like</button>
+                        <button class="btn btn-secondary details-btn" data-pet-id="${pet.petId}">Details</button>
+                        <button class="btn btn-accent adopt-btn">Adopt</button>
+                    </div>
+                </div>
+            `;
+    
+            showDiv.appendChild(petCard);
+        });
+    }
 
+    // Set up event listeners after displaying the pets
     setupEventListeners();
 }
+
 
 function setupEventListeners() {
     const likeButtons = document.querySelectorAll('.like-btn');
     const detailsButtons = document.querySelectorAll('.details-btn');
+    const adoptButtons = document.querySelectorAll('.adopt-btn');
 
     likeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -116,7 +164,43 @@ function setupEventListeners() {
             fetchPetDetailsById(petId);
         });
     });
+
+    adoptButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            showCongratsModal();
+        });
+    });
 }
+
+
+function showCongratsModal() {
+    const modal = document.getElementById('adopt-modal');
+    const countdownTimer = document.getElementById('countdown1-timer');
+
+    modal.classList.remove('hidden');
+
+    let time = 3;
+    const intervalId = setInterval(updateCountdown, 1000);
+
+    function updateCountdown() {
+        time--;
+        countdownTimer.innerHTML = time;
+
+        if (time <= 0) {
+            countdownTimer.innerHTML = 3
+            closeModal();
+            clearInterval(intervalId);
+            
+        }
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('adopt-modal');
+    modal.classList.add('hidden');
+}
+
+
 
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
