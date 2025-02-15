@@ -8,33 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/7f513a1aad.js" crossorigin="anonymous"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=swap'); 
-        img {
-            width: 100%;
-            height: auto;
-        }
-
-        .categorey .card {
-            transition: transform 0.2s;
-        }
-
-        .categorey .card:hover {
-            transform: scale(1.05);
-        }
-
-        .category-card.active {
-            border-radius: 120px;
-            border: 1.5px solid #0E7A81;
-            background: rgba(14, 122, 129, 0.10);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="font-lato">
     <header class="flex flex-col items-center">
-        <nav class="navbar bg-base-100 w-[90%]">
-
+        <nav class="navbar bg-base-100 w-full sm:w-[90%]">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -51,15 +30,14 @@
                         <li><a>Contact</a></li>
                     </ul>
                 </div>
-                <div class="btn btn-ghost">
-                    <a href="index.html"><img src="images/logo.webp" alt=""></a>
-                    <p class="text-[32px] font-bold">Peddy</p>
+                <div class="btn btn-ghost flex items-center pl-11">
+                    <a href="index.html"><img src="images/logo.webp" alt="Logo"></a>
+                    <p class="text-[24px] font-bold">Peddy</p>
                 </div>
-                
             </div>
             <div class="navbar-center hidden lg:flex">
-                <ul class="menu menu-horizontal px-1 ">
-                    <li><a class="">Home</a></li>
+                <ul class="menu menu-horizontal px-1">
+                    <li><a>Home</a></li>
                     <li>
                         <summary>Shop</summary>
                     </li>
@@ -67,24 +45,28 @@
                 </ul>
             </div>
             <div class="navbar-end">
-                   <p class="btn rounded-full w-[48px] h-[48px] p-0"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="rgba(19, 19, 19, 0.70)" class="size-7">
+                <p class="btn rounded-full w-10 h-10 p-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="rgba(19, 19, 19, 0.70)" class="h-6 w-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg></p>
+                    </svg>
+                </p>
             </div>
         </nav>
-        <section class="hero bg-base-200 w-[90%]">
+        <section class="hero bg-base-200 w-full sm:w-[90%]">
             <div class="hero-content text-center">
-                <div class="max-w-[70%]">
-                    <p class="py-6 text-[24px] text-[#13131399]">Bringing Families Together ❤️‍🔥 </p>
-                    <h1 class="text-[72px] font-bold">Your Path to Adoption Starts Here</h1>
-                    <p class="py-6  text-[#13131399]">
-                        It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a.
+                <div class="max-w-[70%] mx-auto">
+                    <p class="py-6 text-[19px] text-[#13131399]">Bringing Families Together ❤️‍🔥 </p>
+                    <h1 class="text-[48px] sm:text-[72px] font-bold">Your Path to Adoption Starts Here</h1>
+                    <p class="py-6 text-[#13131399]">
+                        Every journey begins with a single step. Take yours today and find the perfect companion waiting
+                        for you!
                     </p>
-                    <a href="#more"><button class="btn bg-[#0E7A81] rounded-[12px] text-white px-[32px] py-[16px] text-[16px] hover:bg-[#0E7A81]">View More</button></a>
-                    <img src="images/pet.webp" alt="">
+                    <a href="#more"><button
+                            class="btn bg-[#0E7A81] rounded-[12px] text-white px-8 py-2 text-lg hover:bg-[#0E7A81]">View
+                            More</button></a>
+                    <img src="images/pet.webp" alt="Pet" class="mt-4">
                 </div>
             </div>
         </section>
@@ -96,33 +78,35 @@
         <section class="cate w-[90%]">
             <div class="flex flex-col">
                 <div class="card rounded-box grid h-20 place-items-center text-center mb-[100px]">
-                    <h1 class="text-[40px] font-extrabold mb-[24px]">Adopt Your Best Friend</h1>
-                    <p class="w-[60%]">It is a long established fact that a reader will be distracted by the readable
-                        content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a.
+                    <h1 class="text-[30px] sm:text-4xl font-bold">Adopt Your Best Friend</h1>
+                    <p class="sm:w-[60%] text-[12px] sm:text-[16px]">
+                        Finding a loving companion can change your life. View our vast range of pets available for
+                        adoption and start your adventure today.
                     </p>
                 </div>
-                <div class="categorey flex justify-around items-center">
-
+                <div class="category grid sm:grid-cols-4 grid-cols-2 gap-4">
                 </div>
-
             </div>
         </section>
 
-        <section class="flex justify-between items-center w-[90%] my-[50px] px-[60px]">
-            <p class="text-2xl font-bold">Best Deal For you</p>
-            <button class="btn bg-[#0E7A81] hover:bg-[#0E7A81] text-xl text-white sort-btn w-[178px] h-[56px] p-0">Sort by Price</button>
+
+        <section class="flex justify-between items-center w-[90%] sm:my-[50px] my-[25px] sm:px-[60px] px-[10px]">
+            <p class="text-s sm:text-2xl font-bold">Best Deal For you</p>
+            <button
+                class="btn bg-[#0E7A81] hover:bg-[#0E7A81] text-s sm:text-xl text-white sort-btn sm:w-[178px] w-[92px] h-[48px] p-0">Sort
+                by Price</button>
         </section>
 
 
 
         <div class="container mx-auto w-[90%]">
 
-            <div class="flex justify-between gap-[20px]">
+            <div class="flex justify-between sm:gap-[20px]">
 
-                <div class="show grid grid-cols-3 h-fit gap-4 w-[80%]">
+                <div class="show grid sm:grid-cols-3 grid-cols-1 h-fit sm:gap-4 sm:w-[80%] w-[90%]">
 
                 </div>
-                <div class="liked-grid grid grid-cols-2 h-fit gap-4 p-4">
+                <div class="liked-grid grid sm:grid-cols-2 grid-cols-1 h-fit sm:gap-4 sm:p-4 pt-5 pr-2">
 
                 </div>
             </div>
@@ -133,60 +117,54 @@
             class=" fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center mx-auto hidden">
             <div class="bg-white p-8 rounded-lg shadow-lg w-[40%]">
                 <div id="modal-body" class="modal-content mb-5">
-                 
+
                 </div>
-                <p id="close-modal" class=" btn btn-ghost text-2xl w-full bg-[#0e7a8133] border-[#0e7a811a] text-[#0E7A81]">Close</p>
-                   
-                
+                <p id="close-modal"
+                    class=" btn btn-ghost text-2xl w-full bg-[#0e7a8133] border-[#0e7a811a] text-[#0E7A81]">Close</p>
+
+
             </div>
         </div>
-        
+
 
         <div id="adopt-modal"
-        class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex justify-center items-center z-50">
-       <div class="bg-white p-8 rounded-lg shadow-lg w-[25%] text-center">
-           <h2 class="text-4xl font-bold">🎉 Congrats!</h2>
-           <p class="mt-4 text-lg">Your adoption process is starting!</p>
-           <div class="countdown1 font-mono text-6xl mt-4">
-               <span id="countdown1-timer">3</span>
-           </div>
-       </div>
-   </div>
-   
-
-
-
-   
-
-
+            class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex justify-center items-center z-50">
+            <div class="bg-white sm:p-8 p-4 rounded-lg shadow-lg sm:w-[25%] text-center">
+                <h2 class="text-4xl font-bold">🎉 Congrats!</h2>
+                <p class="mt-4 text-lg">Your adoption process is starting!</p>
+                <div class="countdown1 font-mono text-6xl mt-4">
+                    <span id="countdown1-timer">3</span>
+                </div>
+            </div>
+        </div>
 
     </main>
-    <footer class="footer bg-black py-10 text-gray-500 mx-auto px-[100px]">
+    <footer class="footer bg-black py-10 text-gray-500 mx-auto sm:px-[100px] px-10">
         <nav>
             <div class="btn btn-ghost p-0">
                 <a href="index.html"><img src="images/logo.webp" alt=""></a>
                 <p class="text-[32px] font-bold text-white">Peddy</p>
             </div>
-          <a class="link link-hover">Location: av. Washington 165, NY CA 54003</a>
-          <a class="link link-hover">Phone: +31 85 964 47 25</a>
-          <a class="link link-hover">Email: info@yourdomain.com</a>
-          <a class="link link-hover">Openings hours: 9.00 AM - 5.00 PM</a>
+            <a class="link link-hover">Location: av. Washington 165, NY CA 54003</a>
+            <a class="link link-hover">Phone: +31 85 964 47 25</a>
+            <a class="link link-hover">Email: info@yourdomain.com</a>
+            <a class="link link-hover">Openings hours: 9.00 AM - 5.00 PM</a>
         </nav>
         <nav>
-          <h6 class="footer-title text-white">Usefull links</h6>
-          <a class="link link-hover">Home</a>
-          <a class="link link-hover">About Us</a>
-          <a class="link link-hover">Animals</a>
-          <a class="link link-hover">Foundation</a>
-          <a class="link link-hover">Contact</a>
+            <h6 class="footer-title text-white">Usefull links</h6>
+            <a class="link link-hover">Home</a>
+            <a class="link link-hover">About Us</a>
+            <a class="link link-hover">Animals</a>
+            <a class="link link-hover">Foundation</a>
+            <a class="link link-hover">Contact</a>
         </nav>
-      
+
         <form>
-          <h6 class="footer-title text-white ">Drop a Message</h6>
-          <input type="text" placeholder="Enter your email" class="input input-bordered w-80 max-w-xs" />
-          <p class="btn btn-ghost bg-[#0E7A81] w-80 text-white text-xl">Subscribe</p>
+            <h6 class="footer-title text-white ">Drop a Message</h6>
+            <input type="text" placeholder="Enter your email" class="input input-bordered sm:w-80 max-w-xs" />
+            <p class="btn btn-ghost bg-[#0E7A81] sm:w-80 w-[214.72px] text-white text-xl">Subscribe</p>
         </form>
-      </footer>
+    </footer>
 
     <script src="api.js"></script>
 </body>

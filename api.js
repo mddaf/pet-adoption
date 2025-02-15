@@ -12,19 +12,18 @@ const fetchPetCategories = () => {
 }
 
 function displayCategories(categories) {
-    const categoryContainer = document.querySelector('.categorey');
+    const categoryContainer = document.querySelector('.category');
     categoryContainer.innerHTML = '';
 
     categories.forEach(category => {
         const categoryCard = document.createElement('div');
-        categoryCard.className = 'card bg-base-100 shadow-md w-[13%] h-[9%]  flex flex-row gap-[10px] justify-center items-center category-card';
+        categoryCard.className = 'card bg-base-100 shadow-md flex flex-row gap-2 items-center justify-center category-card';
         categoryCard.setAttribute('data-category', category.category);
 
         categoryCard.innerHTML = `
-            <img src="${category.category_icon}" alt="${category.category}" class="w-16 h-16 mb-2">
-            <h3 class="text-xl font-bold">${category.category}</h3>
+            <img src="${category.category_icon}" alt="${category.category}" class="sm:w-16 w-8 sm:h-16 h-8 mb-2">
+            <h3 class="sm:text-2xl text-xl font-bold">${category.category}</h3>
         `;
-
 
         categoryCard.addEventListener('click', () => {
             setActiveCategory(categoryCard);
@@ -34,6 +33,7 @@ function displayCategories(categories) {
         categoryContainer.appendChild(categoryCard);
     });
 }
+
 
 function setActiveCategory(selectedCategory) {
 
@@ -69,48 +69,40 @@ function displayPets(pets, cate = false) {
     currentPets = pets;
     const showDiv = document.querySelector('.show');
 
-    // If cate is true, show the loading spinner
-    // if (cate) {
-    //     showDiv.innerHTML = `<span class="loading loading-bars loading-lg"></span>`;
-    // }
-
-    // Simulate loading for 2 seconds if cate is true
     if (cate) {
-        showDiv.classList.add('w-[880px]', 'h-[480px]');
-        showDiv.innerHTML = `<span class="loading loading-bars loading-lg p-[25px] mx-[700px] my-[150px]"></span>`;
+        showDiv.classList.add('sm:w-[880px]', 'sm:h-[480px]');
+        showDiv.innerHTML = `<span class="loading loading-bars loading-lg sm:p-[25px] sm:mx-[700px] mx-[120px] my-[100px] sm:my-[150px]"></span>`;
         setTimeout(() => {
-            // Clear the spinner and show the pets
-            showDiv.classList.remove('w-[880px]', 'h-[480px]');
-            showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
-            showDiv.innerHTML = ""; // Clear the spinner
 
-            // Display pets
+            showDiv.classList.remove('sm:w-[880px]', 'sm:h-[480px]');
+            showDiv.innerHTML = "";
+
+
             renderPets(pets, showDiv);
 
-        }, 2000); // Simulate a 2-second delay for loading
+        }, 2000);
     } else {
-        // If cate is false, display pets immediately
         renderPets(pets, showDiv);
     }
 }
 
-// Function to render pets into the showDiv
+
 function renderPets(pets, showDiv) {
-    // Clear any existing content
+
     showDiv.innerHTML = "";
 
     if (pets.length <= 0) {
-        showDiv.classList.remove('grid', 'grid-cols-3', 'gap-4');
+
         const petCard = document.createElement('div');
-        petCard.classList.add('pl-[500px]', 'text-center');
+        petCard.classList.add('sm:pl-[500px]', 'text-center');
         petCard.innerHTML = `
-            <div class="hero  h-fit pr-[100px]">
+            <div class="hero  h-fit sm:pr-[100px]">
             <div class="hero-content flex-col">
                 <img
                 src="images/error.webp"
-                class="w-[20%] rounded-lg shadow-2xl" />
+                class="w-[50%] rounded-lg shadow-2xl" />
                 <div>
-                <h1 class="text-5xl font-bold">No Information Available</h1>
+                <h1 class="sm:text-5xl text-2xl font-bold">No Information Available</h1>
                 <p class="py-6">
                     Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
                     quasi. In deleniti eaque aut repudiandae et a id nisi.
@@ -122,7 +114,6 @@ function renderPets(pets, showDiv) {
         showDiv.appendChild(petCard);
     }
     else {
-        showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
         pets.forEach(pet => {
             const petCard = document.createElement('div');
             petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-6', 'rounded-[12px]');
@@ -137,8 +128,8 @@ function renderPets(pets, showDiv) {
                     <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth}</p>
                     <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender}</p>
                     <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price}</p>
-                    <div class="card-actions justify-between">
-                        <button class="btn btn-ghost like-btn" data-image="${pet.image}"><img src="images/like.png" alt="" class='w-[20px] h-[20px]'></button>
+                    <div class="flex sm:items-stretch sm:justify-between sm:flex-none sm:gap-0.5rem">
+                        <button class="btn btn-ghost like-btn sm:px-3 px-0" data-image="${pet.image}"><img src="images/like.png" alt="" class='w-[20px] h-[20px]'></button>
                         <button class="btn btn-ghost adopt-btn text-[#0E7A81]">Adopt</button>
                         <button class="btn btn-ghost details-btn text-[#0E7A81]" data-pet-id="${pet.petId}">Details</button>
                         
@@ -150,7 +141,6 @@ function renderPets(pets, showDiv) {
         });
     }
 
-    // Set up event listeners after displaying the pets
     setupEventListeners();
 }
 
@@ -214,11 +204,11 @@ function closeModal() {
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
     const likedCard = document.createElement('div');
-    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'w-[124px]', 'h-[124px]');
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'sm:mb-2', 'mb-2', 'sm:w-[124px]', 'sm:h-[124px]', 'w-[60px]', 'h-[60px]');
 
     likedCard.innerHTML = `
         <figure>
-            <img src="${imageSrc}" class="w-full h-[128px] object-cover rounded-[20px]">
+            <img src="${imageSrc}" class="w-full sm:h-[124px] h-[60px] object-cover rounded-[20px]">
         </figure>
     `;
 
