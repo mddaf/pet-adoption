@@ -8,6 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/7f513a1aad.js" crossorigin="anonymous"></script>
+    <style>
+        .liked img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,6 +76,7 @@
 
 
     <main id="more" class="flex flex-col items-center">
+       
         <section class="cate w-[90%]">
             <div class="flex flex-col">
                 <div class="card bg-base-300 rounded-box grid h-20 place-items-center text-center">
@@ -410,34 +417,48 @@
                     </div>
                 </div>
         </section>
+
         <section class="flex justify-between items-center w-[90%]">
             <p class="text-xl">Best Deal For you</p>
             <button class="btn bg-[#0E7A81] hover:bg-[#0E7A81] text-white">Sort by Price</button>
         </section>
 
 
-        <section class="container">
-            <div class="show"></div>
-            <div class="choosen"></div>
-        </section>
+        
+        <div class="container mx-auto mt-10">
+            <h1 class="text-4xl font-bold text-center mb-8">Available Pets</h1>
 
-        <section>
-            <!-- Open the modal using ID.showModal() method -->
-            <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
-            <dialog id="my_modal_1" class="modal">
-                <div class="modal-box">
-                    <h3 class="text-lg font-bold">Hello!</h3>
-                    <p class="py-4">Press ESC key or click the button below to close</p>
-                    <div class="modal-action">
-                        <form method="dialog">
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn">Close</button>
-                        </form>
-                    </div>
+            <div class="flex justify-between">
+                
+                <div class="show w-2/3 grid grid-cols-3 gap-4">
+                    
                 </div>
-            </dialog>
-        </section>
+                <div class="liked-grid grid grid-cols-3 gap-4">
+
+                <!-- <div class="liked w-1/3 bg-gray-100 p-4 shadow-lg"> -->
+                    <!-- <h2 class="text-2xl font-bold mb-4">Liked Pets</h2> -->
+
+                    <!-- <img id="liked-image" class="w-full h-auto" alt="Liked Pet Image"> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div id="pet-modal"
+            class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex justify-center items-center z-50">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-2/3">
+                <button id="close-modal" class="absolute top-4 right-4 text-2xl">&times;</button>
+                <div id="modal-body" class="modal-content">
+
+                </div>
+            </div>
+        </div>
+
+
+
     </main>
+
+    <script src="api.js"></script>
 </body>
 
 
