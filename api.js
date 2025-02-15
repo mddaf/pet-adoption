@@ -1,3 +1,8 @@
+let currentPets = [];
+document.querySelector('.sort-btn').addEventListener('click', () => {
+    const sortedPets = [...currentPets].sort((a, b) => b.price - a.price);
+    displayPets(sortedPets);
+});
 
 const fetchPetCategories = () => {
     fetch('https://openapi.programming-hero.com/api/peddy/categories')
@@ -61,6 +66,7 @@ function fetchPetsByCategory(categoryName) {
 }
 
 function displayPets(pets) {
+    currentPets=pets
     const showDiv = document.querySelector('.show');
     showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
 
