@@ -65,11 +65,24 @@ function setupEventListeners() {
 }
 
 
-function addLikedPet(imageSrc) {
-    const likedImage = document.getElementById('liked-image');
-    likedImage.src = imageSrc;
-}
+// function addLikedPet(imageSrc) {
+//     const likedImage = document.getElementById('liked-image');
+//     likedImage.src = imageSrc;
+// }
 
+function addLikedPet(imageSrc) {
+    const likedDiv = document.querySelector('.liked-grid');
+    const likedCard = document.createElement('div');
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  // Card for liked pet
+
+    likedCard.innerHTML = `
+        <figure>
+            <img src="${imageSrc}" class="w-full h-48 object-cover">
+        </figure>
+    `;
+
+    likedDiv.appendChild(likedCard);  // Append liked pet image
+}
 
 function fetchPetDetailsById(petId) {
     fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
