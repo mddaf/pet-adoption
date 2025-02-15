@@ -1,4 +1,4 @@
-// Fetching pet categories from the API
+
 const fetchPetCategories = () => {
     fetch('https://openapi.programming-hero.com/api/peddy/categories')
         .then(res => res.json())
@@ -6,30 +6,45 @@ const fetchPetCategories = () => {
         .catch(error => console.log(error));
 }
 
-// Function to display the fetched categories in the HTML
 function displayCategories(categories) {
     const categoryContainer = document.querySelector('.categorey');
-    categoryContainer.innerHTML = ''; // Clear existing content
+    categoryContainer.innerHTML = '';
 
     categories.forEach(category => {
         const categoryCard = document.createElement('div');
-        categoryCard.className = 'card bg-base-100 shadow-md p-4 m-2 flex flex-row gap-[10px] items-center';
+        categoryCard.className = 'card bg-base-100 shadow-md p-4 m-2 flex flex-row gap-[10px] items-center category-card';
+        categoryCard.setAttribute('data-category', category.category);
+
         categoryCard.innerHTML = `
             <img src="${category.category_icon}" alt="${category.category}" class="w-16 h-16 mb-2">
             <h3 class="text-xl font-bold">${category.category}</h3>
         `;
-        // Add event listener for fetching pets by category
+
+
         categoryCard.addEventListener('click', () => {
-            fetchPetsByCategory(category.category); // Fetch pets when category is clicked
+            setActiveCategory(categoryCard);
+            fetchPetsByCategory(category.category);
         });
+
         categoryContainer.appendChild(categoryCard);
     });
 }
 
-// Call the function to fetch and display categories
+function setActiveCategory(selectedCategory) {
+
+    const categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(card => {
+        card.classList.remove('active');
+    });
+
+
+    selectedCategory.classList.add('active');
+}
+
+
 fetchPetCategories();
 
-// Function to load all pets
+
 const load = () => {
     fetch("https://openapi.programming-hero.com/api/peddy/pets")
         .then(res => res.json())
@@ -37,7 +52,7 @@ const load = () => {
         .catch(error => console.log(error));
 }
 
-// Function to fetch pets by category
+
 function fetchPetsByCategory(categoryName) {
     fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
         .then(res => res.json())
@@ -100,7 +115,7 @@ function setupEventListeners() {
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
     const likedCard = document.createElement('div');
-    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  // Card for liked pet
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  
 
     likedCard.innerHTML = `
         <figure>
@@ -108,7 +123,7 @@ function addLikedPet(imageSrc) {
         </figure>
     `;
 
-    likedDiv.appendChild(likedCard);  // Append liked pet image
+    likedDiv.appendChild(likedCard);  
 }
 
 function fetchPetDetailsById(petId) {
@@ -147,5 +162,5 @@ document.getElementById('close-modal').addEventListener('click', function() {
     document.getElementById('pet-modal').classList.add('hidden');
 });
 
-// Load all pets on page load
+
 document.addEventListener("DOMContentLoaded", load);
