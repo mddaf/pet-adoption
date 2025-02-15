@@ -123,12 +123,12 @@ function renderPets(pets, showDiv) {
                     <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover pet-image rounded-[8px]">
                 </figure>
                 <div class="card-body px-0">
-                    <h2 class="card-title text-[20px] font-bold">${pet.pet_name}</h2>
-                    <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Unknown'}</p>
-                    <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth}</p>
-                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender}</p>
-                    <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price}</p>
-                    <div class="flex sm:items-stretch sm:justify-between sm:flex-none sm:gap-0.5rem">
+                    <h2 class="card-title text-[20px] font-bold">${pet.pet_name || 'Not Available'}</h2>
+                    <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Not Available'}</p>
+                    <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth || 'Not Available'}</p>
+                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender || 'Not Available'}</p>
+                    <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price || 'Not Available'}</p>
+                    <div class="flex sm:items-stretch justify-between ">
                         <button class="btn btn-ghost like-btn sm:px-3 px-0" data-image="${pet.image}"><img src="images/like.png" alt="" class='w-[20px] h-[20px]'></button>
                         <button class="btn btn-ghost adopt-btn text-[#0E7A81]">Adopt</button>
                         <button class="btn btn-ghost details-btn text-[#0E7A81]" data-pet-id="${pet.petId}">Details</button>
@@ -166,13 +166,14 @@ function setupEventListeners() {
 
     adoptButtons.forEach(btn => {
         btn.addEventListener('click', function () {
-            showCongratsModal();
+            showCongratsModal(btn);
         });
     });
+    
 }
 
 
-function showCongratsModal() {
+function showCongratsModal(adoptButton) {
     const modal = document.getElementById('adopt-modal');
     const countdownTimer = document.getElementById('countdown1-timer');
 
@@ -187,12 +188,16 @@ function showCongratsModal() {
 
         if (time <= 0) {
             countdownTimer.innerHTML = 3
-            closeModal();
             clearInterval(intervalId);
-
+            closeModal();
+            adoptButton.classList.add('disabled');
+            adoptButton.disabled = true;
         }
     }
 }
+
+
+
 
 function closeModal() {
     const modal = document.getElementById('adopt-modal');
@@ -234,20 +239,20 @@ function showPetDetails(pet) {
 
     modalBody.innerHTML = `
         <div class='card-body p-0'>
-        <img src="${pet.image}" class="w-full h-[400px] object-cover rounded-[12px]">
-        <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
+        <img src="${pet.image}" alt="Not Available" class="w-full sm:h-[400px] object-cover rounded-[12px]">
+        <h2 class="text-2xl font-bold">${pet.pet_name || 'Not Available'}</h2>
         <div class="flex items-center gap-[50px]">
             <div class='card-body p-0'>
-                <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Unknown'}</p>
-                <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth}</p>
+                <p> <img src="images/i1.png" alt="" class='w-[20px] h-[20px] inline'> Breed: ${pet.breed || 'Not Available'}</p>
+                <p><img src="images/i2.png" alt="" class='w-[20px] h-[20px] inline'> Birth: ${pet.date_of_birth|| 'Not Available'}</p>
                 </div>
                 <div class='card-body p-0'>
-                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender}</p>
-                <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price}</p>
+                    <p><img src="images/i3.png" alt="" class='w-[20px] h-[23px] inline'> Gender: ${pet.gender  || 'Not Available'}</p>
+                <p><img src="images/i4.png" alt="" class='w-[20px] h-[23px] inline'> Price: $${pet.price || 'Not Available'}</p>
                 </div>
             </div>
-        <p><strong>Vaccination Status:</strong> ${pet.vaccinated_status}</p>
-        <p><strong>Details:</strong> ${pet.pet_details}</p>
+        <p><strong>Vaccination Status:</strong> ${pet.vaccinated_status || 'Not Available'}</p>
+        <p><strong>Details:</strong> ${pet.pet_details || 'Not Available'}</p>
         </div>
 
     `;

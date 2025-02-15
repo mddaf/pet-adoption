@@ -18,3 +18,8 @@ img {
     border: 1.5px solid #0E7A81;
     background: rgba(14, 122, 129, 0.10);
 }
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
