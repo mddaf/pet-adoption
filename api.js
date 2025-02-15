@@ -1,15 +1,15 @@
+// Fetching pet categories from the API
+const fetchPetCategories = () => {
+    fetch('https://openapi.programming-hero.com/api/peddy/categories')
+        .then(res => res.json())
+        .then(data => displayCategories(data.categories))
+        .catch(error => console.log(error));
+}
 
-const fetchPetCategories= () => {
-             fetch('https://openapi.programming-hero.com/api/peddy/categories')
-            .then(res => res.json())
-            .then(data => displayCategories(data.categories))  
-            .catch(error => console.log(error));
-    }
-
-
+// Function to display the fetched categories in the HTML
 function displayCategories(categories) {
     const categoryContainer = document.querySelector('.categorey');
-    categoryContainer.innerHTML = ''; 
+    categoryContainer.innerHTML = ''; // Clear existing content
 
     categories.forEach(category => {
         const categoryCard = document.createElement('div');
@@ -18,34 +18,42 @@ function displayCategories(categories) {
             <img src="${category.category_icon}" alt="${category.category}" class="w-16 h-16 mb-2">
             <h3 class="text-xl font-bold">${category.category}</h3>
         `;
+        // Add event listener for fetching pets by category
+        categoryCard.addEventListener('click', () => {
+            fetchPetsByCategory(category.category); // Fetch pets when category is clicked
+        });
         categoryContainer.appendChild(categoryCard);
     });
 }
 
-
+// Call the function to fetch and display categories
 fetchPetCategories();
 
-
-
-
+// Function to load all pets
 const load = () => {
     fetch("https://openapi.programming-hero.com/api/peddy/pets")
         .then(res => res.json())
-        .then(data => displayPets(data.pets))  
+        .then(data => displayPets(data.pets))
         .catch(error => console.log(error));
 }
 
+// Function to fetch pets by category
+function fetchPetsByCategory(categoryName) {
+    fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`)
+        .then(res => res.json())
+        .then(data => displayPets(data.data))
+        .catch(error => console.log(error));
+}
 
 function displayPets(pets) {
     const showDiv = document.querySelector('.show');
-    showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');  
+    showDiv.classList.add('grid', 'grid-cols-3', 'gap-4');
 
-    
     showDiv.innerHTML = "";
 
     pets.forEach(pet => {
         const petCard = document.createElement('div');
-        petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');  
+        petCard.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
 
         petCard.innerHTML = `
             <figure>
@@ -64,18 +72,15 @@ function displayPets(pets) {
             </div>
         `;
 
-        showDiv.appendChild(petCard); 
+        showDiv.appendChild(petCard);
     });
-
 
     setupEventListeners();
 }
 
-
 function setupEventListeners() {
     const likeButtons = document.querySelectorAll('.like-btn');
     const detailsButtons = document.querySelectorAll('.details-btn');
-
 
     likeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -83,7 +88,6 @@ function setupEventListeners() {
             addLikedPet(imageSrc);
         });
     });
-
 
     detailsButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -93,13 +97,10 @@ function setupEventListeners() {
     });
 }
 
-
-
-
 function addLikedPet(imageSrc) {
     const likedDiv = document.querySelector('.liked-grid');
     const likedCard = document.createElement('div');
-    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  
+    likedCard.classList.add('card', 'bg-base-100', 'shadow-xl');  // Card for liked pet
 
     likedCard.innerHTML = `
         <figure>
@@ -107,7 +108,7 @@ function addLikedPet(imageSrc) {
         </figure>
     `;
 
-    likedDiv.appendChild(likedCard);  
+    likedDiv.appendChild(likedCard);  // Append liked pet image
 }
 
 function fetchPetDetailsById(petId) {
@@ -122,7 +123,6 @@ function fetchPetDetailsById(petId) {
         })
         .catch(error => console.log(error));
 }
-
 
 function showPetDetails(pet) {
     const modal = document.getElementById('pet-modal');
@@ -140,14 +140,12 @@ function showPetDetails(pet) {
         <p><strong>Details:</strong> ${pet.pet_details}</p>
     `;
 
-
     modal.classList.remove('hidden');
 }
-
 
 document.getElementById('close-modal').addEventListener('click', function() {
     document.getElementById('pet-modal').classList.add('hidden');
 });
 
-
+// Load all pets on page load
 document.addEventListener("DOMContentLoaded", load);
